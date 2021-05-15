@@ -9,10 +9,10 @@ const renderLicenseBadge = license => {
 
   if (licenseCheck === "apache" || licenseCheck === "gpl") {
 
-    return "https://img.shields.io/badge/license-" + license + "-blue";
+    return "![](https://img.shields.io/badge/license-" + license + "-blue)";
   }
 
-  return "https://img.shields.io/badge/license-" + license + "-brightgreen";
+  return "![](https://img.shields.io/badge/license-" + license + "-brightgreen)";
 };
 
 // a function that returns the license link
@@ -35,31 +35,111 @@ const renderLicenseLink = license => {
     default:
       return "";
   }
-
 };
 
 // TODO: Create a function that returns the license section of README
 // If there is no license, return an empty string
 const renderLicenseSection = license => {
-  if(!license) return "";
+  if (!license) return "";
 
   const link = renderLicenseLink(license);
-  
+
   return `## License
+
   This project is covered under the ${license} license. For more detail, please go to [${link}](${link}).`
 
 }
 
+const renderInstallationSection = installation => {
+  if (!installation) return '';
+
+  return `## Installation
+
+  ${installation}
+`;
+};
+
+const renderUsageSection = usage => {
+  if (!usage) return '';
+
+  return ` ## Usage
+
+  ${usage}
+`;
+};
+
+const renderContributingSection = contributing => {
+  if (!contributing) return '';
+
+  return `## Contributing
+
+  ${contributing}
+`;
+}
+
+const renderTestsSection = tests => {
+  if (!tests) return '';
+
+  return `## Tests
+
+  ${tests}
+`;
+}
+
+const renderQuestionsSection = questions => {
+  if (!questions) return '';
+
+  return `## Questions
+
+  ${questions}
+`;
+}
+
+const renderTableOfContents = data => {
+  let table = `## Table of contents
+  
+  `;
+  if (data.installation) table += `* [Installation](#installation)
+`
+  if (data.usage) table += `* [Usage](#usage)
+`
+  if (data.contributing) table += `* [Contributing](#contributing)
+`
+  if (data.tests) table += `* [Tests](#tests)
+`
+  if (data.questions) table += `* [Questiongs](#questions)
+`
+
+return table;
+}
+
 // a function to generate markdown for README
 function generateMarkdown(data) {
+
   return `# ${data.title}
+
+${renderLicenseBadge(data.license)}
+
+## Description
+
+${data.description}
+
+${renderTableOfContents(data)}
+
+${renderInstallationSection(data.installation)}
+
+${renderUsageSection(data.usage)}
+
+${renderLicenseSection(data.license)}
+
+${renderContributingSection(data.contributing)}
+
+${renderTestsSection(data.tests)}
+
+${renderQuestionsSection(data.questions)}
 
 `;
 }
 
 module.exports = generateMarkdown;
 
-const mockData = "mit";
-console.log(renderLicenseBadge(mockData));
-console.log(renderLicenseLink(mockData));
-console.log(renderLicenseSection(mockData));
