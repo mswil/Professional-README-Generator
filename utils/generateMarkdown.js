@@ -37,7 +37,7 @@ const renderLicenseLink = license => {
   }
 };
 
-// TODO: Create a function that returns the license section of README
+// a function that returns the license section of README
 // If there is no license, return an empty string
 const renderLicenseSection = license => {
   if (!license) return "";
@@ -86,19 +86,28 @@ const renderTestsSection = tests => {
 `;
 }
 
-const renderQuestionsSection = questions => {
-  if (!questions) return '';
+const renderQuestionsSection = (github, email) => {
+  if (!github || !email) return '';
 
-  return `## Questions
+  let questionSection = `## Questions`
+  if(github) {
+    questionSection += `
 
-  ${questions}
-`;
+GitHub: [${github}](https://github.com/${github})`
+  }
+
+  if(email) {
+    questionSection += `
+
+If you have further questions, please email me at [${email}](${email})`
+  }
+  return questionSection;
 }
 
 const renderTableOfContents = data => {
   let table = `## Table of contents
   
-  `;
+`;
   if (data.installation) table += `* [Installation](#installation)
 `
   if (data.usage) table += `* [Usage](#usage)
@@ -136,7 +145,7 @@ ${renderContributingSection(data.contributing)}
 
 ${renderTestsSection(data.tests)}
 
-${renderQuestionsSection(data.questions)}
+${renderQuestionsSection(data.github, data.email)}
 
 `;
 }
