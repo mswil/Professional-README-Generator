@@ -96,7 +96,7 @@ const init = () => {
         .then(userInput => {
 
             //generate markdown page
-            const markdownPage = generateMarkdown(userInput);
+            const markdownPage = generateMarkdown(mockData);
             console.log(markdownPage);
             return markdownPage;
         })
@@ -107,7 +107,7 @@ const init = () => {
 const mockData = {
     title: "Mock Project",
     description: "This is mock data for the mock project",
-    installation: "Again, who knows how to do this",
+    installation: "who knows how to do this?",
     usage: "use it",
     license: "apache",
     contributing: "who done it?",
