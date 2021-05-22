@@ -90,13 +90,13 @@ const renderQuestionsSection = (github, email) => {
   if (!github || !email) return '';
 
   let questionSection = `## Questions`
-  if(github) {
+  if (github) {
     questionSection += `
 
 GitHub: [${github}](https://github.com/${github})`
   }
 
-  if(email) {
+  if (email) {
     questionSection += `
 
 If you have further questions, please email me at [${email}](${email})`
@@ -105,9 +105,12 @@ If you have further questions, please email me at [${email}](${email})`
 }
 
 const renderTableOfContents = data => {
-  let table = `## Table of contents
+  let table = ``;
+  if (data.installation || data.usage || data.contributing || data.tests || data.github || data.tests) {
+    table += `## Table of contents
   
 `;
+  }
   if (data.installation) table += `* [Installation](#installation)
 `
   if (data.usage) table += `* [Usage](#usage)
@@ -116,10 +119,10 @@ const renderTableOfContents = data => {
 `
   if (data.tests) table += `* [Tests](#tests)
 `
-  if (data.questions) table += `* [Questiongs](#questions)
+  if (data.github || data.email) table += `* [Questions](#questions)
 `
 
-return table;
+  return table;
 }
 
 // a function to generate markdown for README
@@ -139,13 +142,13 @@ ${renderInstallationSection(data.installation)}
 
 ${renderUsageSection(data.usage)}
 
-${renderLicenseSection(data.license)}
-
 ${renderContributingSection(data.contributing)}
 
 ${renderTestsSection(data.tests)}
 
 ${renderQuestionsSection(data.github, data.email)}
+
+${renderLicenseSection(data.license)}
 
 `;
 }
